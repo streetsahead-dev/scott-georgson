@@ -1,0 +1,439 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Scott Georgson Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout concept: a spec sheet. Hairline grid, mono labels, one amber signal color.
+   Each project is a row: name and status on the left, problem / built / standing on the right. */
+:root {
+  --bg: #0e1318;
+  --surface: #151c23;
+  --line: #26303a;
+  --fg: #e6ebf0;
+  --muted: #98a4b0;
+  --accent: #e9b44c;
+  --font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f4f5f6; --surface: #ffffff; --line: #d3d9df; --fg: #141a20; --muted: #55616d; --accent: #9a5a00;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f4f5f6; --surface: #ffffff; --line: #d3d9df; --fg: #141a20; --muted: #55616d; --accent: #9a5a00;
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 16px/1.6 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 72px;
+}
+.page { max-width: 1040px; margin: 0 auto; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.top {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px;
+  color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 12px;
+}
+
+/* Hero */
+.hero { padding: 56px 0 40px; }
+.hero .kicker { color: var(--accent); margin: 0 0 18px; }
+h1 {
+  font-family: var(--font-display); font-stretch: 114%; font-weight: 760;
+  font-size: clamp(2rem, 5.2vw, 3.5rem); line-height: 1.06; letter-spacing: -.012em;
+  margin: 0 0 22px; max-width: 21em; text-wrap: balance;
+}
+.lede { max-width: 62ch; margin: 0; font-size: 1.06rem; color: var(--fg); }
+
+.facts {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 0 28px; margin: 40px 0 0; border-top: 1px solid var(--line);
+}
+.facts div { padding: 14px 0; }
+.facts dt { color: var(--muted); margin: 0 0 4px; }
+.facts dd { margin: 0; font-size: .95rem; }
+
+/* Sections */
+section { padding-top: 48px; }
+h2 {
+  font-family: var(--font-display); font-stretch: 112%; font-weight: 720;
+  font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: 1.15; margin: 0 0 8px; text-wrap: balance;
+}
+.section-intro { max-width: 64ch; color: var(--muted); margin: 0 0 24px; }
+.group-label {
+  display: flex; align-items: center; gap: 14px; color: var(--accent); margin: 40px 0 0;
+}
+.group-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+/* How I use AI */
+.practices {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+}
+.practice { background: var(--surface); padding: 22px; min-width: 0; }
+.practice .mono { color: var(--accent); margin: 0 0 8px; }
+.practice h3 { font-family: var(--font-display); font-stretch: 108%; font-weight: 680; font-size: 1.12rem; margin: 0 0 8px; line-height: 1.25; }
+.practice p { margin: 0; font-size: .96rem; }
+
+.line-label { color: var(--muted); margin: 32px 0 12px; }
+.flow { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 0; }
+.flow li {
+  font-family: var(--font-mono); font-size: 13px; background: var(--surface); border: 1px solid var(--line);
+  padding: 8px 12px; display: flex; align-items: center;
+}
+.flow li:not(:last-child)::after { content: "\2192"; color: var(--accent); margin: 0 -4px 0 14px; transform: translateX(14px); }
+.flow li:not(:last-child) { margin-right: 28px; }
+.flow-note { color: var(--muted); font-size: .92rem; margin: 12px 0 0; max-width: 70ch; }
+
+/* Project rows */
+.proj {
+  display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 10px 40px;
+  padding: 26px 0; border-top: 1px solid var(--line);
+}
+.group-label + .proj { margin-top: 14px; }
+.proj h3 { font-family: var(--font-display); font-stretch: 110%; font-weight: 700; font-size: 1.2rem; line-height: 1.2; margin: 0 0 4px; }
+.proj .where { color: var(--muted); font-size: .88rem; margin: 0 0 12px; }
+.chip {
+  display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase;
+  border: 1px solid var(--line); color: var(--muted); padding: 2px 8px;
+}
+.chip.on { border-color: var(--accent); color: var(--accent); }
+.spec { margin: 0; display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 10px 18px; }
+.spec dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+.spec dd { margin: 0; max-width: 68ch; }
+
+/* Also */
+.also { margin: 0; border-top: 1px solid var(--line); }
+.also div { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 6px 28px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.also dt { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.also dd { margin: 0; max-width: 70ch; }
+
+/* Contact */
+.contact { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 12px; }
+.addr { font-family: var(--font-mono); font-size: 1.05rem; user-select: all; }
+button.copy {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 8px 14px; cursor: pointer;
+}
+button.copy:hover { background: var(--accent); color: var(--bg); }
+.foot { color: var(--muted); margin-top: 56px; border-top: 1px solid var(--line); padding-top: 14px; }
+
+@media (max-width: 720px) {
+  .hero { padding-top: 36px; }
+  .practices { grid-template-columns: minmax(0, 1fr); }
+  .proj { grid-template-columns: minmax(0, 1fr); }
+  .spec { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .spec dd { margin-bottom: 10px; }
+  .also div { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="page">
+  <header class="top mono">
+    <span>Scott Georgson</span>
+    <span>Instructional technology · Curriculum · AI workflows</span>
+  </header>
+
+  <div class="hero">
+    <p class="kicker mono">Portfolio, November 2026</p>
+    <h1>Systems and curriculum for schools, built with AI and checked in classrooms.</h1>
+    <p class="lede">Twelve years teaching K–8 and running school technology, the last three as director of instructional technology. I make the product and architecture decisions, use AI-assisted development to build the tools, then run them in front of real students and teachers to see what breaks.</p>
+    <dl class="facts">
+      <div><dt class="mono">Now</dt><dd>Director of Instructional Technology and technology teacher, PreK–8</dd></div>
+      <div><dt class="mono">Before</dt><dd>Ten years teaching middle school and administering IT, Sioux Falls, SD</dd></div>
+      <div><dt class="mono">Tools</dt><dd>Claude, ChatGPT, Codex, Lovable, Google Apps Script, Firebase, GitHub Pages</dd></div>
+      <div><dt class="mono">Based in</dt><dd>Hales Corners, Wisconsin</dd></div>
+    </dl>
+  </div>
+
+  <section>
+    <h2>How I work with AI</h2>
+    <p class="section-intro">AI writes most of the code and the first drafts. The technical judgment is mine: what to build, how it should be structured, where AI belongs, and whether the result holds up with real users.</p>
+    <div class="practices">
+      <article class="practice">
+        <p class="mono">Choose the tool</p>
+        <h3>Plain rules where a grade or a flag must be explained</h3>
+        <p>The reading-grade console is spreadsheet formulas and Apps Script with no AI in the loop, so every score can be walked through with a parent. AI answer features are stripped from student search. AI goes where it helps: drafting, evaluation, building.</p>
+      </article>
+      <article class="practice">
+        <p class="mono">Set the rules first</p>
+        <h3>Policy, training and a test for every tool</h3>
+        <p>I wrote the school's AI-use policy and parent guide and trained the staff. Any tool I recommend has to save a teacher real time without requiring students to use AI. I chose Flint as the student platform and rolled it out.</p>
+      </article>
+      <article class="practice">
+        <p class="mono">Document the pipeline</p>
+        <h3>A repeatable production line, not one-off prompts</h3>
+        <p>FastForwardED resources come out of fixed instructions: intake questions before any build, a house style spec, a compliance check after, and a catalog registry that flags overlap with earlier products. I vet each one before it is listed.</p>
+      </article>
+      <article class="practice">
+        <p class="mono">Decide, then test</p>
+        <h3>Architecture calls are mine, and classrooms test them</h3>
+        <p>Authentext pairs statistical scoring with a Claude evaluation layer, and I decided how the two divide the work. Voice Grader ran in my own classroom before any colleague saw it, and the reading console runs every week with a real teacher.</p>
+      </article>
+    </div>
+
+    <p class="line-label mono">FastForwardED production line</p>
+    <ol class="flow">
+      <li>Intake questions</li>
+      <li>Build to house spec</li>
+      <li>Compliance check</li>
+      <li>Overlap check against catalog</li>
+      <li>My vetting</li>
+      <li>Listed</li>
+    </ol>
+    <p class="flow-note">For product suites, several evaluators review the candidate ideas before anything is built, and a weak or overlapping idea gets cut at that stage.</p>
+  </section>
+
+  <section>
+    <h2>Work</h2>
+    <p class="section-intro">Three groups: systems I run at St. Paul's Lutheran School, curriculum I wrote and taught, and independent products published under Streets Ahead LLC.</p>
+
+    <p class="group-label mono">Systems at St. Paul's Lutheran, PreK–8</p>
+
+    <article class="proj">
+      <div>
+        <h3>Reading accountability console</h3>
+        <p class="where">Google Sheets, Apps Script</p>
+        <span class="chip on">In use</span>
+      </div>
+      <dl class="spec">
+        <dt>Problem</dt><dd>When the school went 1:1, Accelerated Reader quizzes could be taken unproctored, and the ELA policy needed weekly scoring for about 75 students in grades 6–8.</dd>
+        <dt>Built</dt><dd>A console that scores each student from a weekly report paste against the written policy: goal completion, quiz accuracy and habits. The teacher's only input is a weekly infraction tally. A three-tier progress chart shows who is behind, and policy values sit in a config tab so a rule change needs no code.</dd>
+        <dt>Standing</dt><dd>Running weekly. Scoring is plain rules, so a grade can be explained line by line.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Student start page and games launcher</h3>
+        <p class="where">GitHub Pages, Google Sheets, Chrome policy</p>
+        <span class="chip on">Live</span>
+      </div>
+      <dl class="spec">
+        <dt>Problem</dt><dd>Students needed one place to reach approved tools. Classroom pages at small schools tend to be dead by year three because nobody keeps them up.</dd>
+        <dt>Built</dt><dd>A static page that reads its links and game list from a published spreadsheet, so teachers edit a sheet, not code. Chrome policy sets it as the new-tab page on student Chromebooks. A hidden bonus board switches on for special occasions, and click tracking is aggregate only.</dd>
+        <dt>Standing</dt><dd>Live on student Chromebooks.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>AI policy and rollout</h3>
+        <p class="where">Policy, training, Flint</p>
+        <span class="chip on">In use</span>
+      </div>
+      <dl class="spec">
+        <dt>Built</dt><dd>The AI-use policy and parent guide, staff training on lesson planning and presentations, and a short adoption test for any tool. I chose Flint as the student AI platform and removed Google's AI answer features from student Chromebooks so search returns links only.</dd>
+        <dt>Standing</dt><dd>Rolled out at St. Paul's.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Device tracking</h3>
+        <p class="where">Google Sheets</p>
+        <span class="chip on">In use</span>
+      </div>
+      <dl class="spec">
+        <dt>Built</dt><dd>Per-student Chromebook and charger assignments, an equipment inventory reorganized by room so gaps show up, and an updated 2026–27 Chromebook Care Policy.</dd>
+        <dt>Also run</dt><dd>Google Workspace as super admin, Jamf Pro for iPads, UniFi networking, and the move from Deledao to GoGuardian filtering.</dd>
+      </dl>
+    </article>
+
+    <p class="group-label mono">Curriculum</p>
+
+    <article class="proj">
+      <div>
+        <h3>Wired for Wisdom</h3>
+        <p class="where">Grades 3–8 technology</p>
+        <span class="chip on">Taught</span>
+      </div>
+      <dl class="spec">
+        <dt>Aim</dt><dd>Students who understand and reason about technology, not students who have memorized one set of tools.</dd>
+        <dt>Built</dt><dd>A grades 3–8 curriculum built on consequence literacy and the PRIMM method (predict, run, investigate, modify, make). It covers computing systems and networks, AI literacy, and digital and financial literacy. Each grade has an essential question, a skills focus, a vocabulary set and something students make.</dd>
+        <dt>Standing</dt><dd>Taught at St. Paul's. First-quarter materials are print-ready.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Literature and Spanish redesign</h3>
+        <p class="where">Grades 6–8</p>
+        <span class="chip on">Taught</span>
+      </div>
+      <dl class="spec">
+        <dt>Built</dt><dd>Filled the grades 6–8 Literature vacancy and redesigned the curriculum, including book clubs (2025–26). Did the same for Spanish when I arrived (2024–25).</dd>
+        <dt>Standing</dt><dd>Taught for two years.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Root Bank Builder</h3>
+        <p class="where">Grades 6–8 vocabulary game</p>
+        <span class="chip">Built</span>
+      </div>
+      <dl class="spec">
+        <dt>Aim</dt><dd>Make word parts stick by having students build words instead of memorizing lists.</dd>
+        <dt>Built</dt><dd>A game where students snap prefixes, roots and suffixes together, drawn from the grades 6–8 vocabulary slideshows I made. Its core idea is the gap between what the parts add up to and what the word actually means. It ships with a teacher quick-start guide.</dd>
+        <dt>Standing</dt><dd>Working version done and being shaped for the teachers at St. Paul’s.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>FastForwardED</h3>
+        <p class="where">Teachers Pay Teachers store</p>
+        <span class="chip on">Live</span>
+      </div>
+      <dl class="spec">
+        <dt>Aim</dt><dd>Grades 6–8 ELA and writing resources that need no prep, that an adult can explain simply, and that work even when the teacher does not know every answer.</dd>
+        <dt>Built</dt><dd>Original resources around the IDEAL paragraph framework, plus resources on designing assignments around AI. They come out of the production line above, and I classroom-tested what I could with my own eighth graders.</dd>
+        <dt>Standing</dt><dd>Store live. First sales came in October 2026.</dd>
+      </dl>
+    </article>
+
+    <p class="group-label mono">Independent products, Streets Ahead LLC</p>
+
+    <article class="proj">
+      <div>
+        <h3>Authentext</h3>
+        <p class="where">Web platform for teachers</p>
+        <span class="chip">Beta-ready</span>
+      </div>
+      <dl class="spec">
+        <dt>Problem</dt><dd>Teachers have no good way to tell whether a draft sounds like the student who handed it in.</dd>
+        <dt>Built</dt><dd>A platform that profiles each student's own writing with stylometry (character n-grams, function words, part-of-speech patterns and structural features), compares new work to that baseline, and adds a Claude evaluation layer. It has tiered scoring with genre stratification, a teacher dashboard, Google Classroom roster and work import, onboarding, and a writing diagnostic. I am now building a growth baseline that coaches a student's voice as well as checking it.</dd>
+        <dt>Standing</dt><dd>Built and beta-ready. I am recruiting its first teacher testers.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Flare</h3>
+        <p class="where">Android, Firebase</p>
+        <span class="chip">Closed testing</span>
+      </div>
+      <dl class="spec">
+        <dt>Problem</dt><dd>Silent mode blocks urgent messages, and existing workarounds let every call from a contact through.</dd>
+        <dt>Built</dt><dd>An alert app where the sender decides when something is urgent. Three tiers (Nudge, Spark, Flare), QR-code pairing, live delivery telemetry, Firebase backend, and a full Play Store launch kit.</dd>
+        <dt>Standing</dt><dd>In Google Play closed testing.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Slate</h3>
+        <p class="where">Firebase, Netlify</p>
+        <span class="chip">Late build</span>
+      </div>
+      <dl class="spec">
+        <dt>Problem</dt><dd>A classroom screen and a planbook usually live in separate tools.</dd>
+        <dt>Built</dt><dd>A teacher hub that merges a lesson planbook with a classroom-screen board: timer, dice, name picker and group maker, QR codes, clock, text box, traffic light and a pen board. Google sign-in only. I diagnosed the pen lag to the size of the live drawing surface with a side-by-side test.</dd>
+        <dt>Standing</dt><dd>Late in the build. I want it fully self-serve before I promote it.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Visterra</h3>
+        <p class="where">Map quiz, slate.work</p>
+        <span class="chip">Launching</span>
+      </div>
+      <dl class="spec">
+        <dt>Problem</dt><dd>Seterra, the map quiz our students used, added video ads our ad blocker cannot stop without breaking the site, and the free alternatives are clunky.</dd>
+        <dt>Built</dt><dd>An ad-free, no-login map quiz with a clean, modern design and alternate visual skins, starting with US states and capitals. It follows a shared visual standard I set for all my tools.</dd>
+        <dt>Standing</dt><dd>States and capitals is built and moving to a free public page on slate.work.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Kairos</h3>
+        <p class="where">Career and vocation explorer</p>
+        <span class="chip">In build</span>
+      </div>
+      <dl class="spec">
+        <dt>Aim</dt><dd>Career exploration for grades 6–8 at schools that cannot afford Xello.</dd>
+        <dt>Built</dt><dd>Matchmaker assessments, a separate sixth-grade pathway, eight vocation lessons spread across the grades, and a personal interest project with benchmarks.</dd>
+        <dt>Standing</dt><dd>In build, with the first pilot school still to confirm.</dd>
+      </dl>
+    </article>
+
+    <article class="proj">
+      <div>
+        <h3>Voice Grader</h3>
+        <p class="where">Single-file web app</p>
+        <span class="chip on">In use</span>
+      </div>
+      <dl class="spec">
+        <dt>Problem</dt><dd>Entering a column of scores by hand is slow.</dd>
+        <dt>Built</dt><dd>The teacher says a name and a score. The app matches the name against an uploaded roster and fills a sortable table, with export by copy or CSV. It uses browser speech recognition, keeps all data in the browser, and needs no account or backend.</dd>
+        <dt>Standing</dt><dd>Used in my own classroom. Colleagues have asked to use it.</dd>
+      </dl>
+    </article>
+  </section>
+
+  <section>
+    <h2>Also</h2>
+    <dl class="also">
+      <div><dt>Robotics</dt><dd>Founded VEX IQ at Good Shepherd (3 teams in 2018, 6 in 2019) and led a team to the World Championship. Co-coach of Eaglebots at St. Paul's, growing from 4 to 7 teams and 29 students. RECF Engage Head Referee, certified 2026.</dd></div>
+      <div><dt>Programs</dt><dd>Founded and directed Soccer Bible Camp, 2015–2022, which grew to more than 100 children. Founded an archery club and the school's first speech and debate team.</dd></div>
+      <div><dt>School IT</dt><dd>Ten years as technology administrator for a school, a church and an early-childhood center, including budget, purchasing, state-testing technology and both websites.</dd></div>
+      <div><dt>Spanish</dt><dd>Working proficiency from a six-week immersion program at Academia de Español Quito in Ecuador and a Spanish Education minor at Martin Luther College. Taught Spanish at both schools.</dd></div>
+      <div><dt>Education</dt><dd>B.S., Martin Luther College, 2014. Majors in Elementary Education and Secondary Education, Social Studies.</dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p class="section-intro">The quickest way to reach me is email.</p>
+    <div class="contact">
+      <span class="addr" id="addr">scottgeorgson@gmail.com</span>
+      <button class="copy" id="copy" type="button">Copy address</button>
+      <a href="mailto:scottgeorgson@gmail.com">Open in mail app</a>
+    </div>
+    <p class="mono foot">Hales Corners, Wisconsin · Updated November 2026</p>
+  </section>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy');
+  var addr = document.getElementById('addr');
+  btn.addEventListener('click', function () {
+    var text = addr.textContent.trim();
+    function selectFallback() {
+      var r = document.createRange();
+      r.selectNodeContents(addr);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      btn.textContent = 'Selected, press copy';
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy address'; }, 2000);
+      }, selectFallback);
+    } catch (e) { selectFallback(); }
+  });
+})();
+</script>
+
+</body></html>
